@@ -1,0 +1,207 @@
+//sass内で使用するmixin類や変数はここへ
+
+/// Breakpoint
+$screen: (
+  sm: 640px,
+  md: 960px,
+  lg: 1400px
+) !default;
+
+/// fontsize
+$_font-size: (
+  'sm': 7px,
+  'md': 10px,
+  'lg': 13px,
+) !default;
+
+
+/// Media Queries
+@mixin mq($size, $width: max) {
+  $result: 0;
+  @if(type-of($size) == number) {
+    $result: $size;
+  } @else {
+    @each $key, $value in $screen {
+      @if($key == $size) {
+        $result: $value;
+      }
+    }
+  }
+  @if($width == min) {
+    $result: $result + 1;
+  }
+  @media (#{$width}-width: #{$result}) {
+    @content;
+  }
+}
+//vw変換
+@function _vw($px, $key: 'sm') {
+  $value: 375px;
+  $rate: 100 / $value;
+  @return $rate * $px * 1vw;
+}
+//rem変換
+@function _rem($px, $key: 'sm') {
+  $value: map-get($_font-size, $key);
+  @return ($px/$value)*1rem;
+}
+
+/// Replace `$search` with `$replace` in `$string`
+/// @author Hugo Giraudel
+/// @param {String} $string - Initial string
+/// @param {String} $search - Substring to replace
+/// @param {String} $replace ('') - New value
+/// @return {String} - Updated string
+@function str-replace($string, $search, $replace: '') {
+  $index: str-index($string, $search);
+  
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+  @return $string;
+}
+
+@mixin hover(){
+    &:hover{
+             opacity: .7;
+             text-decoration: none;
+    }
+}
+
+/// ratina background
+@mixin bgi-ratina($src) {
+  background-image: url(#{$src});
+  @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+    background-image: url(str-replace(#{$src}, '.png', '@2x.png')) !important;
+  }
+  @media only screen and (-webkit-min-device-pixel-ratio: 3) {
+    background-image: url(str-replace(#{$src}, '.png', '@3x.png')) !important;
+  }
+}
+
+//line-heightにより発生する上下の余白を相殺する
+@mixin lineHeightCrop($line-height) {
+  &::before {
+    display: block;
+    width: 0;
+    height: 0;
+    margin-top: calc((1 - #{$line-height}) * .5em);
+    content: "";
+  }
+  &::after {
+    display: block;
+    width: 0;
+    height: 0;
+    margin-bottom: calc((1 - #{$line-height}) * .5em);
+    content: "";
+  }
+}
+
+//色変換
+@function convertcolorcode($color){
+  @if $color == white{
+    @return '%23ffffff';
+  }@else if $color == black{
+    @return '%23000000';
+  }@else{
+    @return str-replace(#{$color}, '#', '%23');
+  }
+}
+/// getArw - 色/太さ/向きを指定した矢印型svgのURLを返します
+/// @param {String} $color - 変更したい色（rgba非対応）
+/// @param {String} $weight - 表示される矢印の太さ（light/medium/bold/bla）
+/// @param {String} $rotate - 矢印の向き（top/bottom/left/right）
+/// @param {String} $round - 角丸にするかどうか
+/// @return {String} - 画像URL
+@function getArw($color: #000000, $weight:medium, $rotate: bottom, $round: false){
+  $size: (
+    'light':    39.47,
+    'medium':   40.88,
+    'bold':   42.29,
+    'bla':    45.1
+  );
+
+  $color: convertcolorcode($color);
+  $stroke: "";
+  $canvas: map-get($size, $weight);
+  $canvas_s: 0;
+  $translate_x: 0;
+  $translate_y: 0;
+  @if $rotate == right {
+    $rotate : 90;
+    $translate_x: map-get($size, $weight)/6*-1;
+    @if $round{
+        $translate_x: ($translate_x)-4;
+        $translate_y: ($translate_y)+4;
+    }
+  }@else if $rotate == left{
+    $rotate : -90;
+    $translate_x: map-get($size, $weight)/6;
+    @if $round{
+      $translate_x: ($translate_x)+4;
+      $translate_y: ($translate_y)-4;
+    }
+  }@else if $rotate == bottom{
+    $rotate : 180;
+    $translate_y: (-1*map-get($size, $weight))/6;
+    @if $round{
+      $translate_x: ($translate_x)-4;
+      $translate_y: ($translate_y)-4;
+    }
+  }@else if $rotate == top{
+    $rotate: 0;
+    $translate_y: (1*map-get($size, $weight))/6;
+    @if $round{
+      $translate_x: ($translate_x)+4;
+      $translate_y: ($translate_y)+4;
+    }
+  }
+
+  @if $round {
+    $stroke: "stroke='#{$color}' stroke-linejoin='round' stroke-linecap='round' stroke-width='#{$round}'";
+    $canvas: $canvas+8;
+  }
+  $translate: translate($translate_x, $translate_y);
+  @if $weight == light{
+    @if $round {
+      @return url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='#{$canvas}' height='#{$canvas}' viewBox='0 0 #{$canvas} #{$canvas}'%3E%3Cpath fill='#{$color}' transform='#{$translate}rotate(#{$rotate} #{$canvas/2} #{$canvas/2})' #{$stroke} d='M.29,19.85h0a1,1,0,0,1,0-1.41L18.63.29A1,1,0,0,1,20,.29l18.3,18.15a1,1,0,0,1,0,1.41h0a1,1,0,0,1-1.42,0L20,3.1a1,1,0,0,0-1.41,0L1.7,19.86A1,1,0,0,1,.29,19.85Z'/%3E%3C/svg%3E");
+    }@else{
+      @return url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='#{$canvas}' height='#{$canvas}' viewBox='0 0 #{$canvas} #{$canvas}'%3E%3Cpolygon fill='#{$color}' transform='#{$translate}rotate(#{$rotate} #{$canvas/2} #{$canvas/2})' #{$stroke}  points='M.58,20.86h0A2,2,0,0,1,.59,18L18.22.58A2,2,0,0,1,21,.58L38.63,18a2,2,0,0,1,0,2.82h0a2,2,0,0,1-2.82,0L21,6.21a2,2,0,0,0-2.81,0L3.4,20.87A2,2,0,0,1,.58,20.86Z'/%3E%3C/svg%3E");
+    }
+  }@else if $weight == medium{
+    @if $round {
+      @return url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='#{$canvas}' height='#{$canvas}' viewBox='0 0 #{$canvas} #{$canvas}'%3E%3Cpath fill='#{$color}' transform='#{$translate}rotate(#{$rotate} #{$canvas/2} #{$canvas/2})' #{$stroke} d='M.58,20.86h0A2,2,0,0,1,.59,18L18.22.58A2,2,0,0,1,21,.58L38.63,18a2,2,0,0,1,0,2.82h0a2,2,0,0,1-2.82,0L21,6.21a2,2,0,0,0-2.81,0L3.4,20.87A2,2,0,0,1,.58,20.86Z'/%3E%3C/svg%3E");
+    } @else {
+      @return url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='#{$canvas}' height='#{$canvas}' viewBox='0 0 #{$canvas} #{$canvas}'%3E%3Cpolygon fill='#{$color}' transform='#{$translate}rotate(#{$rotate} #{$canvas/2} #{$canvas/2})' #{$stroke} points='2.81 23.09 0 20.25 20.45 0 40.88 20.25 38.06 23.09 20.45 5.63 2.81 23.09'/%3E%3C/svg%3E");
+    }
+  }@else if $weight == bold{
+    @if $round {
+      @return url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='#{$canvas}' height='#{$canvas}' viewBox='0 0 #{$canvas} #{$canvas}'%3E%3Cpath fill='#{$color}' transform='#{$translate}rotate(#{$rotate} #{$canvas/2} #{$canvas/2})' #{$stroke} d='M.87,21.85h0a3,3,0,0,1,0-4.24L17.8.87A3,3,0,0,1,22,.87L38.91,17.6a3,3,0,0,1,0,4.25h0a3,3,0,0,1-4.24,0L22,9.32a3,3,0,0,0-4.22,0L5.11,21.87A3,3,0,0,1,.87,21.85Z'/%3E%3C/svg%3E");
+    } @else {
+      @return url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='#{$canvas}' height='#{$canvas}' viewBox='0 0 #{$canvas} #{$canvas}'%3E%3Cpolygon fill='#{$color}' transform='#{$translate}rotate(#{$rotate} #{$canvas/2} #{$canvas/2})' #{$stroke}  points='4.22 25.21 0 20.94 21.15 0 42.29 20.94 38.06 25.2 21.15 8.45 4.22 25.21'/%3E%3C/svg%3E");
+    }
+  }@else if $weight == bla{
+    @if $round {
+      @return url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='#{$canvas}' height='#{$canvas}' viewBox='0 0 #{$canvas} #{$canvas}'%3E%3Cpath fill='#{$color}' transform='#{$translate}rotate(#{$rotate} #{$canvas/2} #{$canvas/2})' #{$stroke} d='M1.45,23.85h0a5,5,0,0,1,0-7.07L17,1.45a5,5,0,0,1,7,0L39.48,16.78a5,5,0,0,1,0,7.07h0a5,5,0,0,1-7.07,0L24,15.52a5,5,0,0,0-7,0L8.52,23.89A5,5,0,0,1,1.45,23.85Z'/%3E%3C/svg%3E");
+    } @else {
+      @return url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='#{$canvas}' height='#{$canvas}' viewBox='0 0 #{$canvas} #{$canvas}'%3E%3Cpolygon fill='#{$color}' transform='#{$translate}rotate(#{$rotate} #{$canvas/2} #{$canvas/2})' #{$stroke}  points='7.04 29.44 0 22.34 22.56 0 45.1 22.34 38.06 29.44 22.56 14.07 7.04 29.44'/%3E%3C/svg%3E");
+    }
+  }
+}
+
+@function getblankicon($color: #000000, $round: true){
+
+  $color: convertcolorcode($color);
+  @if $round == false{
+    @return url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpolygon fill='#{$color}' points='9 9 1 9 1 1 4 1 4 0 0 0 0 10 10 10 10 6 9 6 9 9'/%3E%3Cpolygon fill='#{$color}' points='6.5 0 6.5 1 8.29 1 4.15 5.15 4.85 5.85 9 1.71 9 3.5 10 3.5 10 0 6.5 0'/%3E%3C/svg%3E");
+  }@else {
+    @return url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='#{$color}' d='M9,9H1V1H4V0H1A1,1,0,0,0,0,1V9a1,1,0,0,0,1,1H9a1,1,0,0,0,1-1V6H9Z'/%3E%3Cpath fill='#{$color}' d='M9.5,0h-3A.5.5,0,0,0,6,.5a.5.5,0,0,0,.5.5H8.29L4.15,5.15a.48.48,0,0,0,0,.7.48.48,0,0,0,.7,0L9,1.71V3.5a.5.5,0,0,0,1,0V.5A.5.5,0,0,0,9.5,0Z'/%3E%3C/svg%3E");
+  }
+}
+
+
+%animation{
+    transition: all .5s;
+}
+
+

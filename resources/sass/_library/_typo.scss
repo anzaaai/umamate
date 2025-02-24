@@ -1,0 +1,61 @@
+//共通文字スタイル
+%typo__light {
+    font-weight: 300;
+}
+%typo__normal {
+    font-weight: 400;
+}
+%typo__bold {
+    font-weight: 600;
+}
+
+@mixin typo__heading {
+    @extend %typo__bold;
+    font-size: 2.4rem;
+}
+
+@mixin typo__subheading {
+    @extend %typo__bold;
+    font-size: 1.8rem;
+}
+
+@mixin typo__blocktitle {
+    @extend %typo__bold;
+    font-size: 1.3rem;
+    letter-spacing: .15rem;
+}
+@mixin typo__subblocktitle {
+    @extend %typo__normal;
+    font-size: 1rem;
+    letter-spacing: .15rem;
+}
+@mixin typo__paragraph {
+    font-size: 1.4rem;
+    color: $color-black-two;
+}
+@mixin typo__link($color, $hover:true) {
+    color: $color;
+    padding-bottom: 0.14rem;
+    border-bottom: 1px solid transparent;
+    @if $hover{
+        &:hover{
+            border-bottom: 1px solid $color;
+            color: $color;
+            text-decoration: none;
+        }
+    } @else {
+        border-bottom: 1px solid $color;
+        text-decoration: none;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+

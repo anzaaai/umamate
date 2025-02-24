@@ -1,0 +1,77 @@
+extends /_partials/_layout
+block append vars
+    //- ページ個別にメタデータを変更したい場合はここで再設定できます
+    - metas.title = sitetitle
+block append style
+    //- ページ個別にスタイルシートを追加したい場合はここへ記述  
+    link(rel='stylesheet', href='assets/css/top.css')
+block append end_of_body
+    //- ページ個別にJsを追加したい場合はここへ記述  
+block contents
+    //- コンテンツ本文
+
+    //- .hamburger 
+    //-     span 
+    //-     span 
+    //-     span
+    .bg-tr
+        img(src="/assets/img/bg_tr.svg")
+    .bg-bl
+        img(src="/assets/img/bg_bl.svg")
+    .main
+        section.title 
+            .title__wrapper
+                h1.title__heading
+                    span 競馬好きプロフィールメーカー 
+                    | umamate
+                .title__btn プロフィールをつくる
+        section.card
+            .card__wrapper
+                .card__top
+                    .card__icon 
+                        img(src="/assets/img/icon_sample.svg")
+                    .card__profile
+                        .card__name ウマメイト
+                        .card__x @umamate
+                        .card__desc 推しを応援しに全国各地どこまでも！ぜひ仲良くしてください⭐︎長い文字長い文字長い文字長い文字長い文字
+
+                dl.card__oshiuma
+                    dt.card__oshiuma-tit マイ推し馬
+                    dd.card__oshiuma-name
+                        | レガレイラ✨
+                        span.card__oshiuma-desc 直線勝負なら牡馬にも勝る末脚がやばい！負け続きでやっと勝った😭しかも有馬記念🔥
+                .card__flex
+                    dl.card__column1
+                        dt.card__column-tit 最高のレース
+                        dd.card__column-desc 阪神ジュベナイルフィリーズ
+                    dl.card__column2
+                        dt.card__column-tit 好きな騎手
+                        dd.card__column-desc 田口貫太
+                    dl.card__column2
+                        dt.card__column-tit 競馬歴
+                        dd.card__column-desc 3年
+                    dl.card__column2
+                        dt.card__column-tit 芝・ダート
+                        dd.card__column-desc どっちも
+                    dl.card__column2
+                        dt.card__column-tit ホーム競馬場
+                        dd.card__column-desc 東京競馬場
+                    dl.card__column2
+                        dt.card__column-tit 主戦場
+                        dd.card__column-desc 中央も地方も
+                    dl.card__column2
+                        dt.card__column-tit 一口馬主
+                        dd.card__column-desc 1頭
+                    dl.card__column1
+                        dt.card__column-tit 競馬以外の趣味
+                        dd.card__column-desc エレキギター、お酒のツマミを作ること
+
+        .footer 
+            .copyright 
+                p ©umamate
+            .footer_nav
+                ul.nav__wrapper
+                    li.nav__list
+                        a(href="#releasenote") リリースノート
+                    li.nav__list
+                        a(href="https://x.com/daikichi_keiba/" target="_blank") 作った人 

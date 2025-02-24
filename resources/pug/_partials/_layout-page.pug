@@ -1,0 +1,18 @@
+//- 下層ページ用レイアウトファイル
+//- 下層ページ用のレイアウトを適用したい場合に使用します。
+//- 複数のレイアウトを使いたい場合、このファイルをコピー・リネームして使用できます
+//- 多少の違いであれば、このファイル内でif分岐を使って管理する方がスマートです。
+
+extends /_partials/_layout
+block append vars
+    - filename = ''
+    - metas.title = ' | ' + sitetitle
+    - pageClass = ""
+block contents
+    div
+        h1!=pageTitle
+        p 下層ページ共通部
+        block contents-body
+            //- ここに各下層ページで指定した内容が入ります
+        p 下層ページ共通部
+    

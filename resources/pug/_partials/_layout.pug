@@ -1,0 +1,50 @@
+//- //////サイト全体のレイアウトファイル////////
+
+//- トップページを含め、サイト全体を管理するレイアウトファイルです。
+//- ページを作成する際は下記のように継承して使います。
+//- --------------------------------
+//- extends /_partials/_layout
+//- block append vars
+//-     - metas.title = sitetitle
+//- block append style
+//-     //- ページ個別にスタイルシートを追加したい場合はここへ記述  
+//-     link(rel='stylesheet', href='/assets/css/top.css')
+//- block append end_of_body
+//-     //- ページ個別にJsを追加したい場合はここへ記述
+//- block contents
+//-     //- コンテンツ本文
+//- --------------------------------
+
+//- ドメイン設定やdescriptionなどサイト全体の設定
+include _config
+//- サイト内で読み込むjsonデータ
+include _data
+//- mixin
+include _mixin
+
+//- メタデータ
+//- 継承先で下記のように上書き出来ます
+//- block append vars
+//-     - metas.title = "下層ページタイトル" + metas.title
+//-     - metas.description = "下層ページdescription"
+block vars
+    - metas = {}
+    - metas.title = sitetitle
+    - metas.url = siteurl
+    - metas.image = 'imageimagge'
+    - metas.site_name = sitetitle
+    - metas.description = sitedescription
+    - metas.keyword = sitekeywords
+    - pageClass = ""
+doctype html
+html(lang="ja")
+    include _head
+    body(class = pageClass)
+        block body
+            div.wrapper
+                div.content
+                    block contents
+        script(src="//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js")
+        script(src="/assets/js/app.js")
+        block end_of_body
+            

@@ -1,0 +1,302 @@
+//フォームオブジェクトの文字サイズ
+$_fontsize: (pc: 18px, sp: 16px);
+$_fontsize_sm: (pc: 16px, sp: 14px);
+
+//フォームオブジェクトの枠の色
+$inputbordercolor: #000;
+$inputbgcolor: #fff;
+$inputborderradius: 2px;
+
+//フォームオブジェクトのエラー時の色
+$inputerrcolor: #a82020;
+$inputerrbgcolor: #ffdfdf;
+
+//フォームオブジェクトがdisabled時の背景色
+$inputdisabledbgcolor: #ddd;
+//フォームオブジェクトにフォーカスした時の影の色
+$inputfocuscolor: #ff7e28;
+
+//プルダウンの矢印の色
+$selectarwcolor: #28beff;
+
+//ラジオボタン、チェックボックス
+//フォーカスした時の色
+$fccolor: #28beff;
+//ラジオボタンのデザイン（$fccolorを背景にするかどうか）
+$radio-nega: true;
+//チェックボックスのデザイン（$fccolorを背景にするかどうか）
+$check-nega: true;
+//各パーツサイズ
+$_radio-size: (pc: 20px, sp: 20px) !default;
+$_radiofc-scale: (pc: 60%, sp: 60%) !default;
+$_check-size: (pc: 20px, sp: 20px) !default;
+
+// select2カスタマイズ
+@import "../_library/_select2";
+
+// 継承用class start
+// 全てのフォームオブジェクト共通スタイル
+.val_input {
+    border: 1px solid $inputbordercolor;
+    background-color: $inputbgcolor;
+    border-radius: $inputborderradius;
+    font-size: map-get($_fontsize, pc);
+    line-height: 1;
+    padding: 10px 15px;
+    -webkit-appearance: none;
+    &:focus, &--focus{
+        background-color: #fff;
+        border-radius: $inputborderradius;
+        box-shadow: 0 0 4px $inputfocuscolor;
+        outline: none;
+        color: initial;
+    }
+    &[disabled]{
+        background-color: #ddd;
+        border-color: lighten($inputbordercolor, 50%);
+    }
+    @include mq(sm, max){
+        border-radius: $inputborderradius;
+        font-size: map-get($_fontsize, sp);
+        padding: 8px 10px;
+    }
+}
+.val_input--error {
+    @extend .val_input;
+    background-color: $inputerrbgcolor;
+    color: $inputerrcolor;
+    border-color: $inputerrcolor;
+}
+// 継承用class end
+
+//エラーメッセージ
+.error{
+    display: block;
+    color: $inputerrcolor;
+    font-size: 12px;
+    .input--error ~ & {
+        display: block;
+    }
+}
+
+.formitem{
+    display: flex;
+    align-items: flex-start;
+    margin-top: 40px;
+    clear: both;
+    @include mq(sm, max){
+        display: block;
+        margin: 20px 15px 0;
+    }
+    dt {
+        flex-basis: 200px;
+        @include mq(sm, max){
+            margin-bottom: 5px;
+        }
+    }
+    dd {
+        flex: 1;
+        margin: 0;
+    }
+}
+
+.label{
+    display: inline-flex;
+    align-items: center;
+    font-size: map-get($_fontsize, pc);
+    line-height: 1.56;
+    font-weight: bold;
+    @include mq(sm, max){
+        height: auto;
+        font-size: map-get($_fontsize, sp);
+        line-height: 1.75;
+    }
+}
+
+
+
+
+
+select.input,
+input.input,
+textarea.input{
+    @extend .val_input;
+    &--initial{
+        border-color: #fff;
+        background-color: #f2f2f2;
+        color: $inputbordercolor;
+    }
+    &--inline{
+        width: 200px;
+        margin-left: auto;
+        &:first-child{
+            margin-left: 0;
+        }
+    }
+    &--zip{
+        width: 100px;
+        margin-left: 0;
+        @include mq(sm, max){
+            width: 100px;
+        }
+    }
+    &--error {
+        @extend .val_input--error;
+    }
+}
+.input--error {
+    input,select,textarea {
+        @extend .val_input--error;
+    }
+}
+
+
+//フォーム要素を横に並べる
+.inputwrapper{
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    &--fluid {
+        width: 100%;
+    }
+    > *:first-child{
+        margin-left: 0;
+    }
+    > span{
+        font-size: map-get($_fontsize_sm, 'pc');
+        margin: 0 5px;
+        align-self: center;
+        @include mq(sm, max){
+            font-size: map-get($_fontsize_sm, 'sm');
+        }
+    }
+    > div{
+        display: inline-block;
+        margin-left: auto;
+        flex: auto;
+    }
+    .input {
+        @include mq(sm, max){
+            width: calc(100% - 20px);
+        }
+    }
+    &--radio, &--check{
+        align-items: baseline;
+        flex-wrap: wrap;
+        @include mq(sm, max){
+        }
+    }
+}
+
+//ラジオボタン・チェックボックス
+$bdcolor: $inputbordercolor;
+.radiowrapper,
+.checkwrapper{
+    position: relative;
+    margin-right: 25px;
+    &--focus{
+        label:before{
+            box-shadow: 0 0 0 2px $inputfocuscolor;
+        }
+    }
+    > input{
+        opacity: 0;
+        position: absolute;
+    }
+    label{
+        font-size: map-get($_fontsize, pc);
+        padding-left: 30px;
+        position: relative;
+        top: 0%;
+        display: block;
+        @include mq(sm, max){
+            font-size: map-get($_fontsize, sp);
+        }
+    }
+}
+
+input[type="radio"] + label:before{
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 3px;
+    left: 0;
+    width: map-get($_radio-size, pc);
+    height: map-get($_radio-size, pc);
+    border: 1px solid $bdcolor;
+    border-radius: 50%;
+    @include mq(sm, max){
+        width: map-get($_radio-size, sp);
+        height: map-get($_radio-size, sp);
+    }
+}
+input[type="radio"]:checked + label::before{
+    border-color: $fccolor;
+    @if $radio-nega {
+        background-color: $fccolor;
+    }
+}
+input[type="radio"]:checked + label::after{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 4px;
+    left: 1px;
+    width: map-get($_radio-size, pc);
+    height: map-get($_radio-size, pc);
+    transform: scale(map-get($_radiofc-scale, pc));
+
+    @if $radio-nega {
+        background-color: #fff;
+    }
+    @else{
+        background-color: $fccolor;
+    }
+
+    border-radius: 50%;
+
+    @include mq(sm, max){
+        width: map-get($_radio-size, sp);
+        height: map-get($_radio-size, sp);
+        transform: scale(map-get($_radiofc-scale, sp));
+    }
+}
+
+input[type="checkbox"] + label:before{
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 3px;
+    left: 0;
+    width: map-get($_check-size, pc);
+    height: map-get($_check-size, pc);
+    border-radius: 2px;
+    border: 1px solid $bdcolor;
+}
+input[type="checkbox"]:checked + label::before{
+    border-color: $fccolor;
+    @if $check-nega {
+        background-color: $fccolor;
+    }
+}
+input[type="checkbox"]:checked + label::after{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 4px;
+    left: 1px;
+    width: map-get($_check-size, pc);
+    height: map-get($_check-size, pc);
+    background: no-repeat center;
+    $convertcolor: convertcolorcode($fccolor);
+    @if $check-nega {
+        background-color: #fff;
+        $convertcolor: convertcolorcode($fccolor);
+        background-image: url();
+    }
+    @else{
+        background-color: $fccolor;
+        $convertcolor: convertcolorcode(#ffffff);
+    }
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='12' viewBox='0 0 13 12'%3E%3Cpolygon fill='"+ $convertcolor +"' points='1.85 4.67 0 6.69 4.92 11.21 13 1.78 10.92 0 4.69 7.29 1.85 4.67'/%3E%3C/svg%3E");
+}
