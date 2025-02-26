@@ -25,53 +25,158 @@ block contents
                     span 競馬好きプロフィールメーカー 
                     | umamate
                 .title__btn プロフィールをつくる
-        section.card
-            .card__wrapper
-                .card__top
-                    .card__icon 
-                        img(src="/assets/img/icon_sample.svg")
-                    .card__profile
-                        .card__name ウマメイト
-                        .card__x @umamate
-                        .card__desc 推しを応援しに全国各地どこまでも！ぜひ仲良くしてください⭐︎長い文字長い文字長い文字長い文字長い文字
-
-                dl.card__oshiuma
-                    dt.card__oshiuma-tit マイ推し馬
-                    dd.card__oshiuma-name
-                        | レガレイラ✨
-                        span.card__oshiuma-desc 直線勝負なら牡馬にも勝る末脚がやばい！負け続きでやっと勝った😭しかも有馬記念🔥
-                .card__flex
-                    dl.card__column1
-                        dt.card__column-tit 最高のレース
-                        dd.card__column-desc 阪神ジュベナイルフィリーズ
-                    dl.card__column2
-                        dt.card__column-tit 好きな騎手
-                        dd.card__column-desc 田口貫太
-                    dl.card__column2
-                        dt.card__column-tit 競馬歴
-                        dd.card__column-desc 3年
-                    dl.card__column2
-                        dt.card__column-tit 芝・ダート
-                        dd.card__column-desc どっちも
-                    dl.card__column2
-                        dt.card__column-tit ホーム競馬場
-                        dd.card__column-desc 東京競馬場
-                    dl.card__column2
-                        dt.card__column-tit 主戦場
-                        dd.card__column-desc 中央も地方も
-                    dl.card__column2
-                        dt.card__column-tit 一口馬主
-                        dd.card__column-desc 1頭
-                    dl.card__column1
-                        dt.card__column-tit 競馬以外の趣味
-                        dd.card__column-desc エレキギター、お酒のツマミを作ること
 
         .footer 
             .copyright 
                 p ©umamate
             .footer_nav
                 ul.nav__wrapper
+                    //- li.nav__list
+                    //-     a(href="#releasenote") リリースノート
                     li.nav__list
-                        a(href="#releasenote") リリースノート
-                    li.nav__list
-                        a(href="https://x.com/daikichi_keiba/" target="_blank") 作った人 
+                        a(href="https://x.com/daikichi_keiba/" target="_blank") 作った人
+
+    .card-overlay.-hidden
+        .card-modal
+            .card
+                .card__wrapper
+                    .card__top
+                        .card__icon 
+                            img(src="/assets/img/icon_sample.svg")
+                        .card__profile
+                            .card__name ウマメイト
+                            .card__x @umamate
+                            .card__desc 推しを応援しに全国各地どこまでも！ぜひ仲良くしてください⭐︎長い文字長い文字長い文字長い文字長い文字
+
+                    dl.card__oshiuma
+                        dt.card__oshiuma-tit マイ推し馬
+                        dd.card__oshiuma-name
+                            | レガレイラ✨
+                            span.card__oshiuma-desc 直線勝負なら牡馬にも勝る末脚がやばい！負け続きでやっと勝った😭しかも有馬記念🔥
+                    .card__flex
+                        dl.card__column1
+                            dt.card__column-tit 最高のレース
+                            dd.card__column-desc 阪神ジュベナイルフィリーズ
+                        dl.card__column2
+                            dt.card__column-tit 好きな騎手
+                            dd.card__column-desc 田口貫太
+                        dl.card__column2
+                            dt.card__column-tit 競馬歴
+                            dd.card__column-desc 3年
+                        dl.card__column2
+                            dt.card__column-tit 芝・ダート
+                            dd.card__column-desc どっちも
+                        dl.card__column2
+                            dt.card__column-tit ホーム競馬場
+                            dd.card__column-desc 東京競馬場
+                        dl.card__column2
+                            dt.card__column-tit 主戦場
+                            dd.card__column-desc 中央も地方も
+                        dl.card__column2
+                            dt.card__column-tit 一口馬主
+                            dd.card__column-desc 1頭
+                        dl.card__column1
+                            dt.card__column-tit 競馬以外の趣味
+                            dd.card__column-desc エレキギター、お酒のツマミを作ること
+                button.close-btn(type="button")
+                    span.close-icon
+
+                .card__get
+                    .card__download
+                        button.card__download-btn(type="button" ) 画像をダウンロード
+                    //- .card__share
+                    //-     button.card__share-btn(type="button" ) Xでシェアする
+    .modal-overlay.-hidden
+        .modal-content
+            form.profile-form
+                label(for="form__name") 名前
+                input.form__name(type="text", name="form__name")
+
+                label(for="form__x") X(旧Twitter)ID
+                input.form__x-id(type="text", name="form__x")
+
+                label(for="form__desc") 自己紹介
+                textarea.form__desc(name="form__desc")
+
+                label(for="form__oshi-uma-name") マイ推し馬
+                input.form__oshi-uma-name(type="text", name="form__oshi-uma-name")
+
+                label(for="form__oshi-uma-desc") 推し馬のここが好き！
+                textarea.form__oshi-uma-desc(name="form__oshi-uma-desc")
+
+                label(for="form__best-race") 最高のレース
+                input.form__best-race(type="text", name="form__best-race")
+
+                label(for="form__favorite-jockey") 好きな騎手
+                input.form__favorite-jockey(type="text", name="form__favorite-jockey")
+
+                label(for="form__keiba-history") 競馬歴
+                select.form__keiba-history(name="form__home-racecourse")
+                    option(value="") 選択してください
+                    option(value="1年未満") 1年未満
+                    option(value="1年") 1年
+                    option(value="2年") 2年
+                    option(value="3年") 3年
+                    option(value="4年") 4年
+                    option(value="5年以上") 5年以上
+                    option(value="10年以上") 10年以上
+
+                label(for="form__turf-dirt") 得意なコース
+                select.form__turf-dirt(name="form__turf-dirt")
+                    option(value="") 選択してください
+                    option(value="芝") 芝
+                    option(value="ダート") ダート
+                    option(value="芝・ダート") 芝もダートも
+                    option(value="ばんえい") ばんえい
+
+                label(for="form__home-racecourse") ホーム競馬場
+                select.form__home-racecourse(name="form__home-racecourse")
+                    option(value="") 選択してください
+                    option(value="札幌競馬場") 札幌競馬場
+                    option(value="函館競馬場") 函館競馬場
+                    option(value="福島競馬場") 福島競馬場
+                    option(value="新潟競馬場") 新潟競馬場
+                    option(value="東京競馬場") 東京競馬場
+                    option(value="中山競馬場") 中山競馬場
+                    option(value="中京競馬場") 中京競馬場
+                    option(value="京都競馬場") 京都競馬場
+                    option(value="阪神競馬場") 阪神競馬場
+                    option(value="小倉競馬場") 小倉競馬場
+                    option(value="門別競馬場") 門別競馬場
+                    option(value="帯広競馬場") 帯広競馬場
+                    option(value="盛岡競馬場") 盛岡競馬場
+                    option(value="水沢競馬場") 水沢競馬場
+                    option(value="浦和競馬場") 浦和競馬場
+                    option(value="船橋競馬場") 船橋競馬場
+                    option(value="大井競馬場") 大井競馬場
+                    option(value="川崎競馬場") 川崎競馬場
+                    option(value="笠松競馬場") 笠松競馬場
+                    option(value="名古屋競馬場") 名古屋競馬場
+                    option(value="金沢競馬場") 金沢競馬場
+                    option(value="園田競馬場") 園田競馬場
+                    option(value="姫路競馬場") 姫路競馬場
+                    option(value="高知競馬場") 高知競馬場
+                    option(value="佐賀競馬場") 佐賀競馬場
+
+                label(for="form__main-field") 主戦場
+                select.form__main-field(name="form__main-field")
+                    option(value="") 選択してください
+                    option(value="中央競馬") 中央競馬
+                    option(value="地方競馬") 地方競馬
+                    option(value="中央も地方も") 中央も地方も
+
+                label(for="form__horse-owner") 一口馬主
+                select.form__horse-owner(name="form__horse-owner")
+                    option(value="") 選択してください
+                    option(value="やっていない") やっていない
+                    option(value="1頭") 1頭
+                    option(value="2頭") 2頭
+                    option(value="3頭以上") 3頭以上
+                    option(value="5頭以上") 5頭以上
+
+                label(for="form__hobby") 競馬以外の趣味
+                textarea.form__hobby(name="form__hobby")
+
+                button.submit-btn(type="button") プロフィール作成
+                button.close-btn(type="button")
+                    span.close-icon
