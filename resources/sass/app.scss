@@ -260,78 +260,82 @@ img{
 }
 
 .card__wrapper {
-    width: 60rem;
-    height: 60rem;
+    width: 34rem;
+    height: 34rem;
     background-image: url(/assets/img/bg_normal.svg);
     background-repeat: no-repeat;
-    padding: 9.2rem 4rem 4rem 4rem;
+    padding: 4.6rem 2rem 2.4rem 2rem;
     box-sizing: border-box;
     text-align: left;
-    @include mq(sm, max){
-        position: absolute;
-        top:-200%;
+    background-size: cover;
+    @include mq(sm, min){
+        zoom: 1.4;
     }
 }
 
 .card__top {
     display: flex;
-    gap: 2.4rem;
-    margin-bottom: 2.4rem;
+    gap: 1.6rem;
+    margin-bottom: 1rem;
 }
 
 .card__icon {
-    width: 8rem;
-    height: 8rem;
+    img {
+        object-fit: cover;
+        height: 48px;
+        border-radius: 50%;
+        width: 48px;
+    }
 }
 
 .card__profile {
     display: flex;
     flex-direction: column;
-    width: 41.6rem;
+    gap:0.8rem;
+    justify-content: center;
 }
 
 .card__name {
-    font-size: 2rem;
+    font-size: 1.6rem;
 }
 
 .card__x {
     margin-bottom: 0.4rem;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
 }
 
 .card__desc {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
 }
 
 .card__oshiuma {
-    margin-bottom: 1.2rem;
+    margin-bottom: 0.6rem;
     display: flex;
     gap: 1.2rem;
     align-items: center;
     flex-wrap: wrap;
-    margin-top: 1.2rem;
 }
 
 .card__oshiuma-tit {
     border-radius: 0.8rem;
     background: #262410;
     color: #FFF;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     width: 12rem;
-    padding: 2rem 0.4rem;
+    padding: 0.6rem 0.4rem;
     text-align: center;
-    width: 12rem;
+    width: 10rem;
 }
 
 .card__oshiuma-name {
     display: block;
     width: calc(100% - 13.6rem);
-    font-size: 1.8rem;
+    font-size: 1.6rem;
 }
 
 .card__oshiuma-desc {
     display: block;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
 }
 
 .card__column1 {
@@ -352,8 +356,8 @@ img{
     border-radius: 0.8rem;
     background: #262410;
     color: #FFF;
-    font-size: 1.4rem;
-    width: 12rem;
+    font-size: 1.2rem;
+    width: 10rem;
     padding: 0.6rem 0;
     text-align: center;
 }
@@ -361,7 +365,7 @@ img{
 .card__flex {
     display: flex;
     flex-wrap: wrap;
-    row-gap: 1.2rem;
+    row-gap: 0.6rem;
 }
 
 .card__get {
@@ -442,7 +446,7 @@ img{
     line-height: 2rem;
 }
 
-.modal-overlay .modal-content input[type="text"],
+.modal-overlay .modal-content input,
 .modal-overlay .modal-content textarea,
 .modal-overlay .modal-content select {
     padding: 0.8rem;
@@ -512,4 +516,12 @@ img{
 
 .-hidden {
     display: none;
+}
+.uppy-Dashboard-inner{
+    height: 10rem !important;
+}
+
+.uppy-Dashboard-AddFiles-title{
+    font-size: 1.4rem !important;
+    margin: 0 !important;
 }
