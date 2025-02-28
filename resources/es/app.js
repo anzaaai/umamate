@@ -1,7 +1,8 @@
 $(document).ready(function() {
-  const $modalOverlay = $('.modal-overlay');
+  const $modalOverlay = $('.modal-overlay:not(.release-note-modal)');
   const $cardOverlay = $('.card-overlay');
-
+  const $releaseNoteModal = $('.release-note-modal');
+  
   setupModal();
   setupProfileCreation();
   setupImageDownload();
@@ -121,7 +122,7 @@ $(document).ready(function() {
   // モーダル関連のセットアップ
   function setupModal() {
     $('.title__btn').on('click', () => $modalOverlay.removeClass('-hidden'));
-    $('.close-btn, .modal-overlay').on('click', function(event) {
+    $('.close-btn:not(.release-note-close-btn), .modal-overlay:not(.release-note-modal)').on('click', function(event) { // セレクタを修正
       if (event.target === this) {
         $modalOverlay.addClass('-hidden');
         $cardOverlay.addClass('-hidden');
@@ -129,6 +130,29 @@ $(document).ready(function() {
     });
   }
 
+  // リリースノートモーダル
+  $('.release-note-btn').on('click', function(e) {
+    e.preventDefault();
+    $releaseNoteModal.removeClass('-hidden');
+  });
+
+  $('.release-note-close-btn').on('click', function(event) {
+    $releaseNoteModal.addClass('-hidden');
+  });
+
+  // リリースノートモーダル外をクリックで閉じる処理
+  $releaseNoteModal.on('click', function(event) {
+    if (event.target === this) {
+      $releaseNoteModal.addClass('-hidden');
+    }
+  });
+
+  // 他のモーダル
+  $('.close-btn, .modal-overlay').on('click', function(event) {
+    if (event.target === this) {
+      $('.modal-overlay, .card-overlay').addClass('-hidden'); // 他のモーダルを閉じる
+    }
+  });
   // 画像ダウンロードのセットアップ
   function setupImageDownload() {
     $('.card__download-btn').on('click', function() {

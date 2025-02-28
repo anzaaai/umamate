@@ -34,7 +34,18 @@ block contents
                     //- li.nav__list
                     //-     a(href="#releasenote") リリースノート
                     li.nav__list
-                        a(href="https://x.com/daikichi_keiba/" target="_blank") 作った人
+                        a(href="https://x.com/daikichi_keiba/" target="_blank") つくった人
+                        a.footer__link.release-note-btn(href="#") リリースノート
+
+    .release-note-modal.-hidden
+        .release-note__content
+            h3 リリースノート
+            dl 
+                dt.release-note__version v1.0.0
+                dd.release-note__version
+                    | 2024/02/27 - 初期リリース
+            button.close-btn(type="button")
+                span.close-icon
 
     .card-overlay.-hidden
         .card-modal

@@ -147,7 +147,7 @@ img{
     justify-content: space-between;
     font-size: 1.2rem;
     @include mq(sm, max){
-        padding: 3.2rem 4rem;
+        padding: 2.4rem;
     }
 }
 
@@ -159,6 +159,10 @@ img{
 .nav__wrapper {
     display: flex;
     gap: 2.4rem;
+}
+.nav__list {
+    display: flex;
+    gap:2rem;
 }
 
 /* fadein */
@@ -515,7 +519,7 @@ img{
 }
 
 .-hidden {
-    display: none;
+    display: none !important;
 }
 .uppy-Dashboard-inner{
     height: 10rem !important;
@@ -524,4 +528,28 @@ img{
 .uppy-Dashboard-AddFiles-title{
     font-size: 1.4rem !important;
     margin: 0 !important;
+}
+
+.release-note-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.release-note-modal__content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 600px;
+}
+
+.release-note-close-btn {
+    margin-top: 10px;
 }
