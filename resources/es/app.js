@@ -71,7 +71,7 @@ $(document).ready(function() {
         'xId': 'X(旧Twitter)ID',
         'oshiUmaName': 'マイ推し馬',
         'bestRace': '最高のレース',
-        'favoriteJockey': '好きな騎手',
+        'favoriteJockey': '推し騎手',
         'keibaHistory': '競馬歴',
         'homeRacecourse': 'ホーム競馬場',
         'mainField': '主戦場',
@@ -83,8 +83,12 @@ $(document).ready(function() {
           alert(`${messageMap[key]}を入力してください。`);
           return false;
         }
-        if (formData[key].length > 10) {
+        if (formData[key].length > 10 && key !== 'xId') { // xId以外の項目を10文字制限
           alert(`${messageMap[key]}は10文字以内で入力してください。`);
+          return false;
+        }
+        if (key === 'xId' && formData[key].length > 15) { // xIdを15文字制限
+          alert(`${messageMap[key]}は15文字以内で入力してください。`);
           return false;
         }
       }
@@ -133,10 +137,10 @@ $(document).ready(function() {
         .then(dataUrl => {
           const link = document.createElement('a');
           link.href = dataUrl;
-          link.download = 'profile_card_htmltoimage.png';
+          link.download = 'umamate_profile_card.png';
           link.click();
         })
-        .catch(error => console.error('html-to-imageエラー:', error));
+        .catch(error => console.error('エラー:', error));
     });
   }
 

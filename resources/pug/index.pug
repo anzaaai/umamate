@@ -58,7 +58,7 @@ block contents
                             dt.card__column-tit 最高のレース
                             dd.card__column-desc 阪神ジュベナイルフィリーズ
                         dl.card__column1
-                            dt.card__column-tit 好きな騎手
+                            dt.card__column-tit 推し騎手
                             dd.card__column-desc 田口貫太
                         dl.card__column1
                             dt.card__column-tit 競馬歴
@@ -91,27 +91,27 @@ block contents
             form.profile-form
                 label(for="form__icon") アイコン画像
                 div#uppy-dashboard
-                
+
                 label(for="form__name") お名前
                 input.form__name.form__input(type="text", name="form__name")
 
                 label(for="form__x") X(旧Twitter)ID
-                input.form__x-id.form__input(type="text", name="form__x")
+                input.form__x-id.form__input(type="text", name="form__x", maxlength="15")
 
                 //- label(for="form__desc") 自己紹介
                 //- textarea.form__desc(name="form__desc")
 
                 label(for="form__oshi-uma-name") マイ推し馬
-                input.form__oshi-uma-name.form__input(type="text", name="form__oshi-uma-name")
+                input.form__oshi-uma-name.form__input(type="text", name="form__oshi-uma-name", maxlength="10")
 
                 //- label(for="form__oshi-uma-desc") 推し馬のここが好き！
                 //- textarea.form__oshi-uma-desc(name="form__oshi-uma-desc")
 
                 label(for="form__best-race") 最高のレース
-                input.form__best-race.form__input(type="text", name="form__best-race")
+                input.form__best-race.form__input(type="text", name="form__best-race", maxlength="10")
 
-                label(for="form__favorite-jockey") 好きな騎手
-                input.form__favorite-jockey.form__input(type="text", name="form__favorite-jockey")
+                label(for="form__favorite-jockey") 推し騎手
+                input.form__favorite-jockey.form__input(type="text", name="form__favorite-jockey", maxlength="10")
 
                 label(for="form__keiba-history") 競馬歴
                 select.form__keiba-history.form__input(name="form__home-racecourse")
