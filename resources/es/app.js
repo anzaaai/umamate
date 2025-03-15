@@ -136,7 +136,7 @@ $(document).ready(function() {
     $releaseNoteModal.removeClass('-hidden');
   });
 
-  $('.release-note-close-btn').on('click', function(event) {
+  $('.close-btn').on('click', function(event) {
     $releaseNoteModal.addClass('-hidden');
   });
 
@@ -184,4 +184,21 @@ $(document).ready(function() {
       });
     });
   }
+});
+
+const skinSelect = document.querySelector('.card__skin');
+const card = document.querySelector('.card__wrapper');
+
+// ローカルストレージからスキンを復元
+const savedSkin = localStorage.getItem('cardSkin');
+if (savedSkin) {
+    card.dataset.skin = savedSkin;
+    skinSelect.value = savedSkin;
+}
+
+// スキンが選択されたら、data-skin属性とローカルストレージを更新
+skinSelect.addEventListener('change', (event) => {
+    const selectedSkin = event.target.value;
+    card.dataset.skin = selectedSkin;
+    localStorage.setItem('cardSkin', selectedSkin);
 });

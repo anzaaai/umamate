@@ -38,12 +38,16 @@ block contents
                         a.footer__link.release-note-btn(href="#") リリースノート
 
     .release-note-modal.-hidden
-        .release-note__content
+        .release-note-modal__content
             h3 リリースノート
-            dl 
-                dt.release-note__version v1.0.0
-                dd.release-note__version
-                    | 2024/02/27 - 初期リリース
+            dl.release-note-modal__update
+                dt.release-note-modal__version v1.0 Feb 27 '25
+                dd.release-note-modal__desc
+                    | - 初期リリース
+            dl.release-note-modal__update
+                dt.release-note-modal__version v1.1 Mar 15 '25
+                dd.release-note-modal__desc
+                    | - Urbanスキン、Himeスキン追加
             button.close-btn(type="button")
                 span.close-icon
 
@@ -92,6 +96,10 @@ block contents
                 button.close-btn(type="button")
                     span.close-icon
 
+                select.card__skin(name="skin")
+                    option(value="normal") ノーマル
+                    option(value="urban") アーバン
+                    option(value="hime") ヒメ
                 .card__get
                     .card__download
                         button.card__download-btn(type="button" ) 画像をダウンロード
