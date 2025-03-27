@@ -272,9 +272,9 @@ img{
     box-sizing: border-box;
     text-align: left;
     background-size: cover;
-    @include mq(sm, min){
-        zoom: 1.4;
-    }
+    // @include mq(sm, min){
+    //     zoom: 1.4;
+    // }
 }
 
 .card__top {
